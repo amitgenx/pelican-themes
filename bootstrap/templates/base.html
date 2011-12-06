@@ -1,3 +1,22 @@
+{% macro metadata( article, buttons = false ) -%}
+
+Permalink: <a class="more" href="{{ SITEURL }}/{{ article.url }}">{{ article.date }}</a>
+{% if article.author %}by <a class="url fn" href="{{ SITEURL }}/author/{{ article.author }}.html">{{ article.author }}</a>{% endif %}
+in <a href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category }}</a>
+{% if article.tags %}tags: {% for tag in article.tags %}<a href="{{ SITEURL }}/tag/{{ tag }}.html">{{ tag }}</a> {% endfor %}{% endif %}
+{% if buttons %}
+<span class="pull-right">
+	{% if TWITTER_USERNAME %}
+		<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="{{ TWITTER_USERNAME }}">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	{% endif %}
+	{% if FLATTR_URL %}
+		<a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="{{ FQ_SITEURL }}"></a>
+		<noscript><a href="{{ FLATTR_URL }}" target="_blank">
+		<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
+	{% endif %}
+</span>
+{% endif %}
+{%- endmacro -%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +36,7 @@
 	<link href="{{ SITEURL }}/theme/pygments.css" rel="stylesheet">
 	{% include "analytics.html" %}
 	{% include "disqus.html" %}
+	{% include "flattr.html" %}
 </head>
 <body>
 	{% include "facebook.html" %}
